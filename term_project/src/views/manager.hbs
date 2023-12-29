@@ -1,0 +1,137 @@
+<h1>관리자 페이지</h1>
+<body>
+    <div class="container">
+    <h2>정보 추가</h2>
+    <div class="add-form-container">
+        <div class="add-doctor-form">
+            <form method="post" action="/">
+                <div>
+                    <label for="id">DoctorId</label>
+                    <input id="id" name="id" type="text" required placeholder="Id" />
+                </div>
+                <div>
+                    <label for="name">Name</label>
+                    <input id="name" name="name" type="text" required placeholder="Name" />
+                </div>
+                <div>
+                    <label for="addr">Address</label>
+                    <input id="addr" name="addr" type="text" placeholder="Address" />
+                </div>
+                <div>
+                    <label for="phone_number">Phone Number</label>
+                    <input id="phone_number" name="phone_number" type="text" required placeholder="000-0000-0000" />
+                </div>
+                <div>
+                    <label for="passwd">Password</label>
+                    <input id="passwd" name="passwd" type="text" required placeholder="Password" />
+                </div>
+                <div>
+                    <label for="did">Department_Id</label>
+                    <input id="did" name="did" type="text" required placeholder="Department_Id" />
+                </div>
+                <div>
+                    <input type="submit" name='insBtn_d'value="Insert" formaction="/manager" />
+                </div>
+            </form>
+        </div>
+        <div class="add-nurse-form">
+            <form method="post" action="/">
+                <div>
+                    <label for="id">NurseId</label>
+                    <input id="id" name="id" type="text" required placeholder="Id" />
+                </div>
+                <div>
+                    <label for="name">Name</label>
+                    <input id="name" name="name" type="text" required placeholder="Name" />
+                </div>
+                <div>
+                    <label for="addr">Address</label>
+                    <input id="addr" name="addr" type="text" placeholder="Address" />
+                </div>
+                <div>
+                    <label for="phone_number">Phone Number</label>
+                    <input id="phone_number" name="phone_number" type="text" required placeholder="000-0000-0000" />
+                </div>
+                <div>
+                    <label for="passwd">Password</label>
+                    <input id="passwd" name="passwd" type="text" required placeholder="Password" />
+                </div>
+                <div>
+                    <label for="did">Department_Id</label>
+                    <input id="did" name="did" type="text" required placeholder="Department_Id" />
+                </div>
+                <div>
+                    <input type="submit" name='insBtn_n'value="Insert" formaction="/manager" />
+                </div>
+            </form>
+        </div>
+</body>
+<hr>
+<h2>의사 정보 </h2>
+<div class="doctor-information-table">
+    <table class="table">
+    <thead>
+        <tr>
+        <th>ID</th>
+        <th>이름</th>
+        <th>주소</th>
+        <th>전화번호</th>
+        <th>Password</th>
+        <th>소속 부서 ID</th>
+        <th>수정</th>
+        <th>삭제</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each doctorInformation}}
+        <form method="post">
+            <tr>  
+                <td>{{DoctorID}}</td>
+                <td style="display: none"><input type="text" name="id" value={{DoctorID}}></td> 
+                <td><input type="text" name="name" value={{DName}}></td> 
+                <td><input type="text" name="addr" value={{DAddr}}></td> 
+                <td><input type="text" name="phone_number" value={{DPhonenum}}></td> 
+                <td><input type="text" name="passwd" value={{DPassword}}></td> 
+                <td><input type="text" name="did" value={{DepartmentID}}></td>
+                <td><input type="submit" name="modBtn_d" value="Modify" formaction="/manager"></td>   
+                <td><button style="margin-left: 10px;" name='delBtn_d' type="submit" value="{{DoctorID}}">delete</button></td>
+            </tr>
+        </form>
+        {{/each}}
+    </tbody>
+    </table>
+</div>
+
+<h2>간호사 정보</h2>
+<table class="table">
+<thead>
+    <tr>
+    <th>ID</th>
+    <th>이름</th>
+    <th>주소</th>
+    <th>전화번호</th>
+    <th>Password</th>
+    <th>소속 부서 ID</th>
+    <th>수정</th>
+    <th>삭제</th>
+    </tr>
+</thead>
+<tbody>
+    {{#each nurseInformation}}
+    <form method="post">
+        <tr>
+            <td>{{NurseID}}</td>
+            <td style="display: none"><input type="text" name="id" value={{NurseID}}></td>
+            <td><input type="text" name="name" value={{NName}}></td> 
+            <td><input type="text" name="addr" value={{NAddr}}></td> 
+            <td><input type="text" name="phone_number" value={{NPhonenum}}></td> 
+            <td><input type="text" name="passwd" value={{NPassword}}></td> 
+            <td><input type="text" name="did" value={{DepartmentID}}></td>
+            <td><input type="submit" name="modBtn_n" value="Modify" formaction="/manager"></td>   
+            <td><button style="margin-left: 10px;" name='delBtn_n' type="submit" value="{{NurseID}}">delete</button></td>
+        </tr>
+    </form>
+    {{/each}}
+</tbody>
+</table>
+</div>

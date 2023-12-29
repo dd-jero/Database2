@@ -1,0 +1,51 @@
+<h1>{{main_title}}님 환영합니다.</h1>
+<h1>예약 정보 관리</h1>
+
+<div class="container">
+
+    <h2>예약하기</h2>
+    <form method="post" action="/">
+        <div>
+            <label for="time">ReservationDateTime</label>
+            <input id="time" name="time" type="text" required placeholder="Year.Month.Date"/>
+        </div>
+        <div>
+            <label for="did">DepartmentID</label>
+            <input id="did" name="did" type="text" required placeholder="Did" />
+        </div>
+        <div>
+            <label for="patientid">PatientID</label>
+            <input id="patientid" name="patientid" type="text" placeholder="Your id" />
+        </div>
+        <div>
+            <input type="submit" name='insBtn_r'value="Reservation" formaction="/patient" />
+        </div>
+    </form>
+
+    <h2>예약 조회</h2>
+
+    <table class="table table-striped">
+    <thead>
+        <tr>
+        <th>예약 ID</th>
+        <th>예약 일시</th>
+        <th>부서 ID</th>
+        <th>환자 ID</th>
+        <th>예약 취소</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each reservations}}
+        <form method="post">
+            <tr>  
+                <td>{{ReservationID}}</td>
+                <td>{{ReservationDateTime}}</td> 
+                <td>{{DepartmentID}}</td> 
+                <td>{{PatientID}}</td> 
+                <td><button style="margin-left: 10px;" name='delBtn_r' type="submit" value="{{ReservationID}}">delete</button></td>
+            </tr>
+        </form>
+        {{/each}}
+    </tbody>
+    </table>
+</div>

@@ -1,0 +1,96 @@
+<h1>Nurse {{main_title}}님 환영합니다.</h1>
+<h1>치료 정보 관리</h1>
+
+<div class="container">
+
+    <h2>치료 정보 목록</h2>
+    <table class="table table-striped">
+    <thead>
+        <tr>
+        <th>치료 ID</th>
+        <th>치료 일시</th>
+        <th>치료 세부 정보</th>
+        <th>간호사 ID</th>
+        <th>환자 ID</th>
+        <th>수정</th>
+        <th>삭제</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each treatments}}
+        <form method="post">
+            <tr>
+                <td><input type="text" name="tid" value={{TreatmentID}}></td>
+                <td><input type="text" name="time" value={{TreatmentDateTime}}></td> 
+                <td><input type="text" name="details" value={{TreatmentDetails}}></td> 
+                <td><input type="text" name="nurseid" value={{NurseID}}></td> 
+                <td><input type="text" name="patientid" value={{PatientID}}></td> 
+                <td><input type="submit" name="modBtn_t" value="Modify" formaction="/nurse"></td>   
+                <td><button style="margin-left: 10px;" name='delBtn_t' type="submit" value={{TreatmentID}}>delete</button></td>
+            </tr>
+        </form>
+        {{/each}}
+    </tbody>
+    </table>
+
+    <h2>새로운 치료 정보 입력</h2>
+    <form method="post" action="/">
+        <div>
+            <label for="tid">TreatmentID</label>
+            <input id="tid" name="tid" type="text" required placeholder="TID"/>
+        </div>
+        <div>
+            <label for="time">TreatmentDateTime</label>
+            <input id="time" name="time" type="text" required placeholder="Year.Month.Date"/>
+        </div>
+        <div>
+            <label for="details">TreatmentDetails</label>
+            <input id="details" name="details" type="text" required placeholder="Name" />
+        </div>
+        <div>
+            <label for="nurseid">NurseID</label>
+            <input id="nurseid" name="nurseid" type="text" placeholder="nurseid" />
+        </div>
+        <div>
+            <label for="patientid">PatientID</label>
+            <input id="patientid" name="patientid" type="text" required placeholder="patientid" />
+        </div>
+        <div>
+            <input type="submit" name='insBtn_t'value="Insert" formaction="/nurse" />
+        </div>
+
+    <h2>환자 목록</h2>
+
+    <table class="table table-striped">
+    <thead>
+        <tr>
+        <th>환자 ID</th>
+        <th>환자 이름</th>
+        <th>주민번호</th>
+        <th>성별</th>
+        <th>주소</th>
+        <th>혈액형</th>
+        <th>키</th>
+        <th>몸무게</th>
+        <th>전화번호</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each patients}}
+        <form method="post">
+            <tr>  
+                <td>{{PatientID}}</td>
+                <td>{{PName}}</td>
+                <td>{{SocialSecurityNumber}}</td>
+                <td>{{PGender}}</td>
+                <td>{{PAddr}}</td>
+                <td>{{BloodType}}</td>
+                <td>{{Height}}</td>
+                <td>{{Weight}}</td>
+                <td>{{PPhonenum}}</td>
+            </tr>
+        </form>
+        {{/each}}
+    </tbody>
+    </form>
+</div>

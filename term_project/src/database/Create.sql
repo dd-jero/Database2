@@ -1,0 +1,95 @@
+CREATE DATABASE Hospital_jy;
+USE Hospital_jy;
+
+CREATE TABLE USER (
+    Id INT PRIMARY KEY,
+    Password VARCHAR(255),
+    Role VARCHAR(255)
+);
+
+
+CREATE TABLE MEDICAL_SPECIALTY (
+    DepartmentID INT PRIMARY KEY,
+    DepartmentName VARCHAR(255) NOT NULL NOT NULL,
+    PhoneNumber VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE MANAGER (
+    ManagerID INT PRIMARY KEY,
+    Name VARCHAR(255) NOT NULL,
+    Password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE DOCTOR (
+    DoctorID INT PRIMARY KEY,
+    DName VARCHAR(255) NOT NULL,
+    DAddr VARCHAR(255) NOT NULL,
+    DPhonenum VARCHAR(20) NOT NULL,
+    DPassword VARCHAR(255) NOT NULL,
+    DepartmentID INT NOT NULL,
+    FOREIGN KEY (DepartmentID) REFERENCES MEDICAL_SPECIALTY(DepartmentID)
+);
+
+CREATE TABLE NURSE (
+    NurseID INT PRIMARY KEY,
+    NName VARCHAR(255) NOT NULL,
+    NAddr VARCHAR(255) NOT NULL,
+    NPhonenum VARCHAR(20) NOT NULL,
+    NPassword VARCHAR(255) NOT NULL,
+    DepartmentID INT NOT NULL,
+    FOREIGN KEY (DepartmentID) REFERENCES MEDICAL_SPECIALTY(DepartmentID)
+);
+
+CREATE TABLE PATIENT (
+    PatientID INT PRIMARY KEY,
+    PName VARCHAR(255) NOT NULL,
+    SocialSecurityNumber VARCHAR(20) UNIQUE NOT NULL,
+    PGender ENUM('Male', 'Female'),
+    PAddr VARCHAR(255) NOT NULL,
+    BloodType VARCHAR(10) NOT NULL,
+    Height INT,
+    Weight INT,
+    PPhonenum VARCHAR(20) NOT NULL,
+    PPassword VARCHAR(255) NOT NULL,
+    DoctorID INT NOT NULL,
+    NurseID INT NOT NULL,
+    FOREIGN KEY (DoctorID) REFERENCES DOCTOR(DoctorID),
+    FOREIGN KEY (NurseID) REFERENCES NURSE(NurseID)
+);
+
+CREATE TABLE INPATIENT (
+    RoomInformation VARCHAR(255),
+    AdmissionDateTime VARCHAR(255) NOT NULL,
+    DischargeDateTime DATETIME,
+    PatientID INT NOT NULL UNIQUE,
+    FOREIGN KEY (PatientID) REFERENCES PATIENT(PatientID)
+);
+
+CREATE TABLE RESERVATION (
+    ReservationID INT PRIMARY KEY,
+    ReservationDateTime VARCHAR(255) NOT NULL,
+    DepartmentID INT NOT NULL,
+    PatientID INT NOT NULL,
+    FOREIGN KEY (DepartmentID) REFERENCES MEDICAL_SPECIALTY(DepartmentID),
+    FOREIGN KEY (PatientID) REFERENCES PATIENT(PatientID)
+);
+
+CREATE TABLE EXAMINATION (
+    ExaminationID INT PRIMARY KEY,
+    ExaminationDateTime VARCHAR(255) NOT NULL,
+    ExaminationDetails TEXT,
+    DoctorID INT NOT NULL,
+    PatientID INT NOT NULL,
+    FOREIGN KEY (DoctorID) REFERENCES DOCTOR(DoctorID),
+    FOREIGN KEY (PatientID) REFERENCES PATIENT(PatientID)
+);
+
+CREATE TABLE TREATMENT (
+    TreatmentID INT PRIMARY KEY,
+    TreatmentDateTime VARCHAR(255) NOT NULL,
+    TreatmentDetails TEXT,
+    NurseID INT NOT NULL,
+    PatientID INT NOT NULL,
+    FOREIGN KEY (NurseID) REFERENCES NURSE(NurseID),
+    FOREIGN KEY (PatientID) REFERENCES PATIENT(PatientID)
+);
